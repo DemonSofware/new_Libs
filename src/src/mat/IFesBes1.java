@@ -19,4 +19,5 @@ public interface IFesBes1 {
 	Matt updateInvitationMatt(int mattId, String username, HashMap<String, List<String>> calendars);
 	List<mat.Matt> getCheckedGuestsMatts(int mattId);
 	String[] getGuests(int mattId);
+	int saveGuestsMatt(int mattId, Matt newGuestMatt, String guestName);//return mattId
 }
