@@ -14,8 +14,9 @@ public interface IFesBes1 {
 	void setActive(String userName,String hashcode);
 	void updateMatCalendarInSN(String userName, String snName);
 	public int ifEmailExistsInDB(String email);
-	boolean setGuests(int matID, String [] guestEmails);
-	java.util.List<Notification> getNotifications(String guestName);
-	Matt updateInvitationMatt(int matId,String username,
-			HashMap<String, List<String>> calendars);
+	boolean setGuests(int mattId, String [] guestEmails);
+	List<Notification> getNotifications(String guestName);
+	Matt updateInvitationMatt(int mattId, String username, HashMap<String, List<String>> calendars);
+	List<mat.Matt> getCheckedGuestsMatts(int mattId);
+	String[] getGuests(int mattId);
 }

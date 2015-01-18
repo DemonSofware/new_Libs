@@ -29,7 +29,7 @@ public interface IFrontConnector {
     //May throw unchecked RuntimeException. It is strongly recommended to make try/catch block.
     String[] getApplicationData(String socialName);
     //Free slots are ones that should be marked as events in the Google calendar
-    void setEvent(String eventName, String userName, mat.Matt matt);
+    void setEvent(String[] guestsEmail, String userName, mat.Matt matt);
     //in HashMap: key - SocialNetwork, List Calendars
     HashMap<String, List<String>> getAvailableCalendars(String userName);
     
