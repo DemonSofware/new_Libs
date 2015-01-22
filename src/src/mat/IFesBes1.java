@@ -17,7 +17,7 @@ public interface IFesBes1 {
 	boolean setGuests(int mattId, String [] guestEmails);
 	List<Notification> getNotifications(String guestName);
 	Matt updateInvitationMatt(int mattId, String username, HashMap<String, List<String>> calendars);
-	List<mat.Matt> getCheckedGuestsMatts(int mattId);
+	HashMap<String, String> getCheckedGuestsMatts(int mattId);//key - guestEmail, value - mattJSON
 	String[] getGuests(int mattId);
 	int saveGuestsMatt(int mattId, Matt newGuestMatt, String guestName);//return mattId
 }
