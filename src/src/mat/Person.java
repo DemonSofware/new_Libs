@@ -1,6 +1,7 @@
 package mat;
 
 import java.io.Serializable;
+import java.util.TimeZone;
 
 @SuppressWarnings("serial")
 public class Person implements Serializable{
@@ -8,10 +9,10 @@ public class Person implements Serializable{
 	 //String userName;
 	 String email;//the same as username
 	 String password;
-	 int timeZone; //relatively GMT, e.g. value for Israel 2
-	 
+//	 int timeZone; //relatively GMT, e.g. value for Israel 2
+	 TimeZone timeZone;
 
-	 public Person(String name/*, String[] snNames*/, String email, String password, int timeZone) {
+	 public Person(String name/*, String[] snNames*/, String email, String password, TimeZone timeZone) {
 	  super();
 	  this.name = name;
 	  this.email = email;
@@ -19,8 +20,8 @@ public class Person implements Serializable{
 	  this.timeZone = timeZone;
 	 }
 	 
-	 public int getTimeZone() {return timeZone;}
-	 public void setTimeZone(int timeZone) {this.timeZone = timeZone;}
+	 public TimeZone getTimeZone() {return timeZone;}
+	 public void setTimeZone(TimeZone timeZone) {this.timeZone = timeZone;}
 	 
 	 public String getName() {return name;}
 	 public void setName(String name) {this.name = name;}
