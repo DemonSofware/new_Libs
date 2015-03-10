@@ -6,9 +6,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@SuppressWarnings("serial")
 public class MattData implements Serializable {
 
+	public static final int NOT_REPEAT = 0;
+	public static final int WEEKS_REPEAT = 1;
+	public static final int MONTHS_REPEAT = 2;
+	
 	String name;//name of MATT
 	int mattId;//from DB (BES1)
 	int nDays;//number of days
@@ -17,6 +20,7 @@ public class MattData implements Serializable {
 	int endHour;//24-time slot
 	int timeSlot; //in minutes
 	String password; //if null the MATT is public
+	private int repeat;
 	HashMap<String, List<String>[]> sncalendars;//key - Social Network,
 	//      value-two dimensional strings array, first dimension: 0-Upload, 1-Download
 	//calendars null - no synch with calendars
@@ -26,7 +30,8 @@ public class MattData implements Serializable {
 	//calendars[1] - contains one calendar for download
 	//second Example - no download:
 	//           calendars[1] is null
-	public MattData(String name, int nDays, Date startDate, int startHour, int endHour, int timeSlot, String password) {
+	public MattData(String name, int nDays, Date startDate, int startHour, 
+			int endHour, int timeSlot, String password) {
 		this.mattId = 0;
 		this.name = name;
 		this.nDays = nDays;
@@ -35,6 +40,7 @@ public class MattData implements Serializable {
 		this.endHour = endHour;
 		this.timeSlot = timeSlot;
 		this.password = password;
+		this.repeat = MattData.NOT_REPEAT;
 		this.sncalendars = new HashMap<String, List<String>[]>();
 	}
 	public List<String> getUploadCalendars(String SN) {
@@ -130,7 +136,15 @@ public class MattData implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public void setRepeat(int repeat) {
+		this.repeat = repeat;
+	}
 	
+	public int getRepeat() {
+		return repeat;
+	}
+
 	public String getName() {
 		return name;
 	}
