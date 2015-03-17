@@ -9,10 +9,11 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class Matt implements Serializable {
-	private static final long serialVersionUID = 3L;//must be changed when changing data fields
+	private static final long serialVersionUID = 4L;//must be changed when changing data fields
 	static public String delimiter=",";
 	static public final int minInWeek = 10080;
 	static public final long mseñInWeek =86400000L;
+	public Calendar currentWeek;
 
 	MattData data;//parameters of MAT
 	ArrayList<Boolean> slots;//false - available, true - not selected
@@ -181,13 +182,20 @@ public class Matt implements Serializable {
 	  }
 	 }
 	return newTabList;}
-//--------------------------------------------------------------------------------------	 
-	public String week2browser(Date curentDay){
+//--------------------------------------------------------------------------------------	
+	public void weekFromBrowser(String jsonWeek){
+		ArrayList<Boolean> weekArrList = Matt.fromBrowser2ArrayList(jsonWeek);
+		int countSlotsInDay = Matt.minInWeek/7/this.data.getTimeSlot();
+		int firstSlot = (int)((currentWeek.getTimeInMillis()-data.getStartDate().getTime())/Matt.mseñInWeek*7*countSlotsInDay);
+		for(int i=0; i<weekArrList.size(); i++)
+			this.slots.set(i+firstSlot, weekArrList.get(i));
+	}
+	public String week2browser(Date currentDay){
 		StringBuilder jsonWeek = new StringBuilder();
 		Calendar calendar = new GregorianCalendar();
 		Calendar matCalendar = new GregorianCalendar();
 		matCalendar.setTime(this.data.getStartDate());
-		calendar.setTime(curentDay);
+		calendar.setTime(currentDay);
 		if(calendar.before(matCalendar))
 			return null;
 		matCalendar.add(Calendar.DATE, this.data.getnDays());
@@ -198,7 +206,7 @@ public class Matt implements Serializable {
 			jsonWeek = getFreeWeek(calendar);
 			addWeeks(calendar);
 		}
-		
+		currentWeek = calendar;
 		return jsonWeek.toString();
 	}
 	private void addWeeks(Calendar calendar) {
@@ -270,12 +278,13 @@ public class Matt implements Serializable {
 					   weekStr.append("1");
 				   else
 					   weekStr.append("0");
-				   weekStr.append(",");
+				   if(j!=6) weekStr.append(",");
 				   count=count+countSlotsInDay;
 			   }
-			   weekStr.append("]");
+			   weekStr.append("],");
 			}
 		}
+		weekStr.deleteCharAt(weekStr.length()-1);
 		weekStr.append("]]");
 		return weekStr;
 	}
