@@ -7,20 +7,18 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MattData implements Serializable {
-
-	public static final int NOT_REPEAT = 0;
-	public static final int WEEKS_REPEAT = 1;
-	public static final int MONTHS_REPEAT = 2;
+	private static final long serialVersionUID = 3L;//must be changed when changing data fields
 	
-	String name;//name of MATT
-	int mattId;//from DB (BES1)
-	int nDays;//number of days
-	Date startDate;
-	int startHour;//0
-	int endHour;//24-time slot
-	int timeSlot; //in minutes
-	String password; //if null the MATT is public
-	private int repeat;
+	private String name;//name of MATT
+	private int mattId;//from DB (BES1)
+	private int nDays;//number of days
+	private Date startDate;
+	private int startHour;//0
+	private int endHour;//24-time slot
+	private int timeSlot; //in minutes
+	private String password; //if null the MATT is public
+	private Date repeatDate;
+	private Date endRepeatDate;
 	HashMap<String, List<String>[]> sncalendars;//key - Social Network,
 	//      value-two dimensional strings array, first dimension: 0-Upload, 1-Download
 	//calendars null - no synch with calendars
@@ -40,7 +38,8 @@ public class MattData implements Serializable {
 		this.endHour = endHour;
 		this.timeSlot = timeSlot;
 		this.password = password;
-		this.repeat = MattData.NOT_REPEAT;
+		this.repeatDate = null;
+		this.endRepeatDate = null;
 		this.sncalendars = new HashMap<String, List<String>[]>();
 	}
 	public List<String> getUploadCalendars(String SN) {
@@ -137,14 +136,6 @@ public class MattData implements Serializable {
 		this.password = password;
 	}
 
-	public void setRepeat(int repeat) {
-		this.repeat = repeat;
-	}
-	
-	public int getRepeat() {
-		return repeat;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -165,6 +156,18 @@ public class MattData implements Serializable {
 	}
 	public String getPassword() {
 		return password;
+	}
+	public Date getRepeatDate() {
+		return repeatDate;
+	}
+	public void setRepeatDate(Date repeatDate) {
+		this.repeatDate = repeatDate;
+	}
+	public Date getEndRepeatDate() {
+		return endRepeatDate;
+	}
+	public void setEndRepeatDate(Date endRepeatDate) {
+		this.endRepeatDate = endRepeatDate;
 	}
 
 	public Date dateFormat(){

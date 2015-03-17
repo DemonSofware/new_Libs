@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class Matt implements Serializable {
+	private static final long serialVersionUID = 3L;//must be changed when changing data fields
 	static public String delimiter=",";
 	static public final int minInWeek = 10080;
 	static public final long mseñInWeek =86400000L;
@@ -180,17 +181,17 @@ public class Matt implements Serializable {
 	  }
 	 }
 	return newTabList;}
-	 
+//--------------------------------------------------------------------------------------	 
 	public String week2browser(Date curentDay){
 		StringBuilder jsonWeek = new StringBuilder();
 		Calendar calendar = new GregorianCalendar();
 		Calendar matCalendar = new GregorianCalendar();
-		matCalendar.setTime(this.data.startDate);
+		matCalendar.setTime(this.data.getStartDate());
 		calendar.setTime(curentDay);
 		if(calendar.before(matCalendar))
 			return null;
-		matCalendar.add(Calendar.DATE, this.data.nDays);
-		calendar.set(Calendar.DAY_OF_WEEK, 1);
+		matCalendar.add(Calendar.DATE, this.data.getnDays());
+//		calendar.set(Calendar.DAY_OF_WEEK, 1);
 		if(calendar.before(matCalendar))
 			jsonWeek = getWeek(calendar);
 		else {

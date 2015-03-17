@@ -4,15 +4,18 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public class Person implements Serializable{
+	private static final long serialVersionUID = 3L;//must be changed when changing data fields
 	
 	String name; //name of user
+	String familyName;
 	String email;//the same as userName
 	String password;
 	int timeZone; //relatively GMT, e.g. value for Israel 2
 	HashMap<String, Group> groups;
 
-	public Person(String name, String email, String password, int timeZone) {
+	public Person(String name, String familyName, String email, String password, int timeZone) {
 		this.name = name;
+		this.familyName = familyName;
 		this.email = email;
 		this.password = password;
 		this.timeZone = timeZone;
@@ -20,8 +23,9 @@ public class Person implements Serializable{
 		groups.put("Default", new Group("Default"));
 	}
 	 
-	public Person(String name, String email, String password, int timeZone, HashMap<String, Group> groups) {
+	public Person(String name, String familyName, String email, String password, int timeZone, HashMap<String, Group> groups) {
 		this.name = name;
+		this.familyName = familyName;
 		this.email = email;
 		this.password = password;
 		this.timeZone = timeZone;
@@ -33,6 +37,9 @@ public class Person implements Serializable{
 	 
 	public String getName() {return name;}
 	public void setName(String name) {this.name = name;}
+	 
+	public String getFamilyName() {return familyName;}
+	public void setFamilyName(String familyName) {this.familyName = familyName;}
 	 
 	public String getEmail() {return email;}
 	public void setEmail(String email) {this.email = email;}
@@ -52,6 +59,7 @@ public class Person implements Serializable{
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((familyName == null) ? 0 : familyName.hashCode());
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
 		result = prime * result + timeZone;
@@ -81,6 +89,11 @@ public class Person implements Serializable{
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
+			return false;
+		if (familyName == null) {
+			if (other.familyName != null)
+				return false;
+		} else if (!familyName.equals(other.familyName))
 			return false;
 		if (password == null) {
 			if (other.password != null)
