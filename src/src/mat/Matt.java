@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class Matt implements Serializable {
-	private static final long serialVersionUID = 4L;//must be changed when changing data fields
+	private static final long serialVersionUID = 5L;//must be changed when changing data fields
 	static public String delimiter=",";
 	static public final int minInWeek = 10080;
 	static public final long mseñInWeek =86400000L;
@@ -26,7 +26,15 @@ public class Matt implements Serializable {
 	public HashMap<Integer, SlotInfo> getSlotsInfo() {return slotsInfo;}
 	public void setSlotsInfo(HashMap<Integer, SlotInfo> slotsInfo) {this.slotsInfo = slotsInfo;}
 	
-	
+	public void addSlotInfo(int numberDay, int numberSlotInDay, String nameGuest, String surnameGuest,
+			String emailGuest, String phoneGuest, String noteGuest){
+		int countSlotsInDay = Matt.minInWeek/7/this.data.getTimeSlot();
+		int firstSlot = (int)((currentWeek.getTimeInMillis()-data.getStartDate().getTime())/Matt.mseñInWeek*7*countSlotsInDay);
+		int numberSlot = firstSlot+numberDay*countSlotsInDay+numberSlotInDay;
+		slotsInfo.put(numberSlot, new SlotInfo(nameGuest, surnameGuest, emailGuest, phoneGuest, noteGuest));
+	}
+
+//-----------------------------------old code----------------------
 	public String mattToJSON() {
 	  String res=data.mattDataToJSON();
 	  if(slots!=null){
